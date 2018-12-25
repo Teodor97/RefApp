@@ -1,0 +1,23 @@
+﻿@model RefApp.Services.Models.Home.IndexViewModel
+@{
+    ViewData["Title"] = "Home Page";
+    var number = 1.234567M;
+}
+
+<h1>@number.ToString("F3")</h1>
+<div class="row">
+    @foreach (var product in Model.Products)
+    {
+        <div class="col-md-4 clearfix">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    @product.Name
+                </div>
+                <div class="panel-footer">
+                    @product.CategoryName
+                    <a class="btn btn-default btn-sm" asp-controller="Product" asp-action="Details" asp-route-id="@product.Id">View</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>

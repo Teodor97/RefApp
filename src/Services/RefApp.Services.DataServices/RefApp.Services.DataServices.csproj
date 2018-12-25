@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>RefApp.Services.DataServices</AssemblyName>
+    <RootNamespace>RefApp.Services.DataServices</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Data\RefApp.Data.Common\RefApp.Data.Common.csproj" />
+    <ProjectReference Include="..\..\Data\RefApp.Data.Models\RefApp.Data.Models.csproj" />
+    <ProjectReference Include="..\RefApp.Services.Mapping\RefApp.Services.Mapping.csproj" />
+    <ProjectReference Include="..\RefApp.Services.Models\RefApp.Services.Models.csproj" />
+  </ItemGroup>
+
+</Project>

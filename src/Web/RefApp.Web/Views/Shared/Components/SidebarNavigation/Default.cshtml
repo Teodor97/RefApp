@@ -1,0 +1,14 @@
+﻿@model IEnumerable<string>
+<div class="text-center">
+    <hr />
+    <h4>Categories</h4>
+    <hr />
+    <div class="list-group">
+        @foreach (var category in Model)
+        {
+            <a type="button" class="list-group-item list-group-item-action
+               @(category == ViewBag.SelectedCategory ? "active":"")" 
+               href="/@category">@category</a>
+        }
+    </div>
+</div>

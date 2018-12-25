@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.DataAnnotations" Version="2.1.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Data\RefApp.Data.Models\RefApp.Data.Models.csproj" />
+    <ProjectReference Include="..\RefApp.Services.Mapping\RefApp.Services.Mapping.csproj" />
+  </ItemGroup>
+
+</Project>
