@@ -4,8 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using RefApp.Data.Common;
-using RefApp.Web.Models;
 using Microsoft.EntityFrameworkCore;
+using RefApp.Data.Models;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace RefApp.Data
 {
@@ -25,6 +26,10 @@ namespace RefApp.Data
         {
             return this.dbSet.AddAsync(entity);
         }
+        public EntityEntry Add(TEntity entity)
+        {
+            return this.dbSet.Add(entity);
+        }
 
         public IQueryable<TEntity> All()
         {
@@ -39,6 +44,10 @@ namespace RefApp.Data
         public Task<int> SaveChangesAsync()
         {
             return this.context.SaveChangesAsync();
+        }
+        public int SaveChanges()
+        {
+            return this.context.SaveChanges();
         }
 
         public void Dispose()

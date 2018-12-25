@@ -33,6 +33,12 @@ namespace RefApp.Services.DataServices
 
             return products;
         }
+        public IEnumerable<Product> GetAllProducts()
+        {
+            var products = this.productsRepository.All().ToList();
+
+            return products;
+        }
 
         public int GetCount()
         {
@@ -74,6 +80,39 @@ namespace RefApp.Services.DataServices
         {
             var products = this.productsRepository.All().Where(p => p.Category == null || p.Category.Name == category).To<IndexProductViewModel>().ToList();
             return products;
+        }
+
+        public void SaveProduct(Product product)
+        {
+            if (product.Id == 0)
+            {
+                productsRepository.AddAsync(product);
+            }
+            else
+            {
+                Product dbEntry = productsRepository.All()
+                .FirstOrDefault(p => p.Id == product.Id);
+                if (dbEntry != null)
+                {
+                    dbEntry.Name = product.Name;
+                    dbEntry.Description = product.Description;
+                    dbEntry.Price = product.Price;
+                    dbEntry.CategoryId = product.CategoryId;
+                }
+            }
+            productsRepository.SaveChanges();
+        }
+
+        public Product DeleteProduct(int productId)
+        {
+            Product dbEntry = productsRepository.All()
+            .FirstOrDefault(p => p.Id == productId);
+            if (dbEntry != null)
+            {
+                productsRepository.Delete(dbEntry);
+                productsRepository.SaveChanges();
+            }
+            return dbEntry;
         }
     }
 }

@@ -1,16 +1,17 @@
-﻿using RefApp.Data.Models;
-using RefApp.Services.Mapping;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using RefApp.Data.Common;
+using System.ComponentModel.DataAnnotations;
 
-namespace RefApp.Services.Models.Cart
+namespace RefApp.Data.Models
 {
-    public class CartLine
+    public class CartLine:BaseModel<int>
     {
-        public int CartId { get; set; }
+        [Required]
+        [RegularExpression(@"^\d*[0-9]\d*$",ErrorMessage = "Quantity should be possitive!")]
         public int Quantity { get; set; }
 
-        public Data.Models.Product Product { get; set; }
+        public Product Product { get; set; }
+        public int ProductId { get; set; }
+        public int OrderId { get; set; }
+        public Order Order { get; set; }
     }
 }

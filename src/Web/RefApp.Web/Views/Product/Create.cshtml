@@ -1,6 +1,8 @@
 ﻿@model RefApp.Web.Model.Products.CreateProductInputModel
 
 @{
+
+    Layout = "_AdminLayout";
     ViewData["Title"] = "Create";
     var categories = this.ViewData["Categories"] as IEnumerable<SelectListItem>;
 }
@@ -10,7 +12,7 @@
 <h4>CreateProductInputModel</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-12">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">

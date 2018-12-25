@@ -16,5 +16,7 @@ namespace RefApp.Data.Common
         void Delete(TEntity entity);
 
         Task<int> SaveChangesAsync();
+        int SaveChanges();
+        
     }
 }

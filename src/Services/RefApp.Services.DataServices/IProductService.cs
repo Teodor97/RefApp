@@ -17,5 +17,11 @@ namespace RefApp.Services.DataServices
         ProductDetailsViewModel GetProductById(int id);
         IEnumerable<IndexProductViewModel> GetProductsByCategory(string category);
         Product ProductById(int productId);
+
+        IEnumerable<Product> GetAllProducts();
+
+        void SaveProduct(Product product);
+
+        Product DeleteProduct(int productId);
     }
 }

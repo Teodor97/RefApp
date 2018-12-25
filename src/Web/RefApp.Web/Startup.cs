@@ -15,11 +15,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using RefApp.Web.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using RefApp.Web.Model.Products;
 using RefApp.Web.Model.Cart;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace RefApp.Web
 {
@@ -29,6 +29,8 @@ namespace RefApp.Web
         {
             Configuration = configuration;
         }
+
+
 
         public IConfiguration Configuration { get; }
 
@@ -61,11 +63,14 @@ namespace RefApp.Web
                         options.Password.RequireDigit = false;
                     }
                 )
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<RefAppContext>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddMemoryCache();
             services.AddSession();
+
+            services.AddScoped<IUserClaimsPrincipalFactory<RefAppUser>, UserClaimsPrincipalFactory<RefAppUser, IdentityRole>>();
 
             // Application services
             services.AddScoped(typeof(IRepository<>), typeof(DbRepository<>));
@@ -73,10 +78,11 @@ namespace RefApp.Web
             services.AddScoped<ICategoriesService, CategoriesService>();
             services.AddScoped<Cart>(sp => SessionCart.GetCart(sp));
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddTransient<IOrderRepository, OrderRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider serviceProvider)
         {
             if (env.IsDevelopment())
             {
@@ -107,6 +113,29 @@ namespace RefApp.Web
                     defaults: new { controller = "Home", action = "Index"}
                     );
             });
+
+            SeedUserRoles(serviceProvider).Wait();
+        }
+
+        private async Task SeedUserRoles(IServiceProvider serviceProvider)
+        {
+            //initializing custom roles
+            var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            var userManager = serviceProvider.GetRequiredService<UserManager<RefAppUser>>();
+
+            string[] roleNames = { "Admin", "Manager", "Member" };
+
+            var users = await userManager.Users.ToListAsync();
+
+            foreach (var userName in users)
+            {
+                await userManager.AddToRoleAsync(userName, roleNames[2]);
+                if (userName.Email == "admin@abv.bg")
+                {
+                    await userManager.AddToRoleAsync(userName, roleNames[0]);
+                }
+            }
+
         }
     }
 }

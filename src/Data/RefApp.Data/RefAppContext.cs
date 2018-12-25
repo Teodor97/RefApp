@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace RefApp.Web.Models
+namespace RefApp.Data
 {
     public class RefAppContext : IdentityDbContext<RefAppUser>
     {
@@ -14,6 +14,8 @@ namespace RefApp.Web.Models
         public DbSet<Category> Categories { get; set; }
 
         public DbSet<Product> Products { get; set; }
+
+        public DbSet<Order> Orders { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
