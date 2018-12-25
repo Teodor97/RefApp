@@ -1,9 +1,10 @@
-﻿@model RefApp.Services.Models.Home.IndexViewModel
+﻿@using RefApp.Web.Common
+@model RefApp.Services.Models.Home.IndexViewModel
 @{
     ViewData["Title"] = "Home Page";
     var number = 1.234567M;
 }
-
+<hr />
 <h1>@number.ToString("F3")</h1>
 <div class="row">
     @foreach (var product in Model.Products)
@@ -16,8 +17,22 @@
                 <div class="panel-footer">
                     @product.CategoryName
                     <a class="btn btn-default btn-sm" asp-controller="Product" asp-action="Details" asp-route-id="@product.Id">View</a>
+                    <form id="@product.Id" asp-action="AddToCart"
+                          asp-controller="Cart" method="get">
+                        <input type="hidden" name="productId" value="@product.Id" />
+                        <input type="hidden" name="returnUrl"
+                               value="@ViewContext.HttpContext.Request.PathAndQuery()" />
+                        <span class="card-text p-1">
+                            Nqkakuv description
+                            <button type="submit"
+                                    class="btn btn-success btn-sm pull-right" style="float:right">
+                                Add To Cart
+                            </button>
+                        </span>
+                    </form>
                 </div>
             </div>
         </div>
     }
 </div>
+@*<form id="@product.Id" asp-action="AddToCart" asp-controller="Cart" method="post"><button class="btn btn-success btn-sm pull-right" style="float:right">Add To Cart</button></form>*@

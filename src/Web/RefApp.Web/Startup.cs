@@ -19,6 +19,7 @@ using RefApp.Web.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using RefApp.Web.Model.Products;
+using RefApp.Web.Model.Cart;
 
 namespace RefApp.Web
 {
@@ -63,11 +64,15 @@ namespace RefApp.Web
                 .AddEntityFrameworkStores<RefAppContext>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMemoryCache();
+            services.AddSession();
 
             // Application services
             services.AddScoped(typeof(IRepository<>), typeof(DbRepository<>));
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<ICategoriesService, CategoriesService>();
+            services.AddScoped<Cart>(sp => SessionCart.GetCart(sp));
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -89,6 +94,7 @@ namespace RefApp.Web
             app.UseCookiePolicy();
 
             app.UseAuthentication();
+            app.UseSession();
 
             app.UseMvc(routes =>
             {

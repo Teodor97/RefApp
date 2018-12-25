@@ -56,6 +56,11 @@ namespace RefApp.Services.DataServices
             return product.Id;
         }
 
+        public Product ProductById(int productId)
+        {
+            var product = this.productsRepository.All().Where(p => p.Id == productId).FirstOrDefault();
+            return product;
+        }
         public ProductDetailsViewModel GetProductById(int id)
         {
             
