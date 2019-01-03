@@ -76,6 +76,7 @@ namespace RefApp.Web
             services.AddScoped(typeof(IRepository<>), typeof(DbRepository<>));
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<ICategoriesService, CategoriesService>();
+            services.AddScoped<IBrandService, BrandService>();
             services.AddScoped<Cart>(sp => SessionCart.GetCart(sp));
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddTransient<IOrderRepository, OrderRepository>();
@@ -111,6 +112,11 @@ namespace RefApp.Web
                     name: null,
                     template: "{category}",
                     defaults: new { controller = "Home", action = "Index"}
+                    );
+                routes.MapRoute(
+                    name: null,
+                    template: "{brand}" ,
+                    defaults: new { controller = "Home", action = "Index" } //TODO: not working yet
                     );
             });
 

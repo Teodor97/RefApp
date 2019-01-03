@@ -1,14 +1,28 @@
-﻿@model IEnumerable<string>
+﻿@model RefApp.Services.Models.CategoriesAndBrandsSideBarViewModel
 <div class="text-center">
     <hr />
     <h4>Categories</h4>
     <hr />
     <div class="list-group">
-        @foreach (var category in Model)
+        @foreach (var category in Model.Categories)
         {
             <a type="button" class="list-group-item list-group-item-action
                @(category == ViewBag.SelectedCategory ? "active":"")" 
                href="/@category">@category</a>
+        }
+    </div>
+</div>
+
+<div class="text-center">
+    <hr />
+    <h4>Brands</h4>
+    <hr />
+    <div class="list-group">
+        @foreach (var brand in Model.Brands)
+        {
+            <a type="button" class="list-group-item list-group-item-action
+               @(brand == ViewBag.SelectedBrand ? "active":"")"
+               href="/@brand">@brand</a>
         }
     </div>
 </div>

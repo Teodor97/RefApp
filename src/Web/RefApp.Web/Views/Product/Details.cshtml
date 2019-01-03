@@ -1,41 +1,100 @@
-﻿@model RefApp.Services.Models.Product.ProductDetailsViewModel
+﻿@using RefApp.Web.Common
+@model RefApp.Services.Models.Product.ProductDetailsViewModel
 
 @{
     ViewData["Title"] = "Details";
+    var stock = Model.Stock;
 }
 
-<h2>Details</h2>
+<hr />
+<div class="container-fluid">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 service-image-left">
+                <div class="product col-md-3">
+                    <center>
+                        <img id="item-display" src="@Html.DisplayFor(model => model.ImagePath)" height="350" width="300" alt="">
+                    </center>
+                </div>
+            </div>
 
-<div>
-    <h4>ProductDetailsViewModel</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Price)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.CategoryName)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.CategoryName)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Index">Back to Home</a>
+            <div class="col-md-4">
+                <div class="product-title"><h4>@Html.DisplayFor(model => model.Name)</h4></div>
+                <div class="product-desc display-4">@Html.DisplayFor(model => model.ShortDescription)</div>
+                <div class="product-rating"><i class="fa fa-star gold"></i> <i class="fa fa-star gold"></i> <i class="fa fa-star gold"></i> <i class="fa fa-star gold"></i> <i class="fa fa-star-o"></i> </div>
+                <hr>
+                <div class="product-price"><h3>@Html.DisplayFor(model => model.Price) $</h3></div>
+                <div class="product-stock">
+                    @if (stock == 0)
+                    {
+                        <h4>Out of Stock</h4>
+                    }
+                    else
+                    {
+                        <h4>In Stock (@Html.DisplayFor(model => model.Stock))</h4>
+                    }
+
+                </div>
+                <hr>
+                <form id="@Model.Id" asp-action="AddToCart"
+                      asp-controller="Cart" method="get">
+                    <input type="hidden" name="productId" value="@Model.Id" />
+                    <input type="hidden" name="returnUrl"
+                           value="@ViewContext.HttpContext.Request.PathAndQuery()" />
+                    <button type="submit" class="btn btn-success">
+                        <i class="fa fa-shopping-cart"></i>
+                        Add to cart
+                    </button>
+                    <button type="submit"
+                            class="btn btn-danger"
+                            asp-controller="Product" asp-action="Wishlist" asp-route-id="@Model.Id">
+                        <i class="fa fa-heart-o"></i>
+                        Add to whishlist
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <ul id="myTab" class="nav nav-tabs" role="tablist">
+
+            <li class="nav-item active"><a class="btn btn-light text-black-50" href="#service-one" role="tab" data-toggle="tab">DESCRIPTION</a></li>
+            <li class="nav-item"><a class="btn btn-light text-black-50" href="#service-two" role="tab" data-toggle="tab">PRODUCT INFO</a></li>
+            <li class="nav-item"><a class="btn btn-light text-black-50" href="#service-three" role="tab" data-toggle="tab">REVIEWS</a></li>
+
+        </ul>
+
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="service-one">
+                <hr />
+                <section>
+                    <p class="">@Html.DisplayFor(model => model.Description)</p>
+
+                    <h3>Corsair Gaming Series GS600 Features:</h3>
+                    <li>It supports the latest ATX12V v2.3 standard and is backward compatible with ATX12V 2.2 and ATX12V 2.01 systems</li>
+                    <li>An ultra-quiet 140mm double ball-bearing fan delivers great airflow at an very low noise level by varying fan speed in response to temperature</li>
+                    <li>80Plus certified to deliver 80% efficiency or higher at normal load conditions (20% to 100% load)</li>
+                    <li>0.99 Active Power Factor Correction provides clean and reliable power</li>
+                    <li>Universal AC input from 90~264V — no more hassle of flipping that tiny red switch to select the voltage input!</li>
+                    <li>Extra long fully-sleeved cables support full tower chassis</li>
+                    <li>A three year warranty and lifetime access to Corsair’s legendary technical support and customer service</li>
+                    <li>Over Current/Voltage/Power Protection, Under Voltage Protection and Short Circuit Protection provide complete component safety</li>
+                    <li>Dimensions: 150mm(W) x 86mm(H) x 160mm(L)</li>
+                    <li>MTBF: 100,000 hours</li>
+                    <li>Safety Approvals: UL, CUL, CE, CB, FCC Class B, TÜV, CCC, C-tick</li>
+                </section>
+
+            </div>
+            <div role="tabpanel" class="tab-pane" id="service-two">
+                <hr />
+                <section>@Html.DisplayFor(model => model.ProductInformation)</section>
+
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="service-three">
+                <hr />
+                This pane was made so you can RATE the product!
+            </div>
+        </div>
+        <hr>
+    </div>
 </div>

@@ -1,2 +1,2 @@
-# RefApp
-E-commerce for refrigerators and stuff!
+# FunApp
+Demo app with jokes and funny images

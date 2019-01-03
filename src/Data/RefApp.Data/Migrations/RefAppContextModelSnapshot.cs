@@ -129,6 +129,20 @@ namespace RefApp.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("RefApp.Data.Models.Brand", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Brands");
+                });
+
             modelBuilder.Entity("RefApp.Data.Models.CartLine", b =>
                 {
                     b.Property<int>("Id")
@@ -157,8 +171,7 @@ namespace RefApp.Data.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(15);
+                        .IsRequired();
 
                     b.HasKey("Id");
 
@@ -209,18 +222,32 @@ namespace RefApp.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("BrandId");
+
                     b.Property<int>("CategoryId");
 
                     b.Property<DateTime>("CreatedOn");
 
                     b.Property<string>("Description");
 
+                    b.Property<string>("ImagePath");
+
+                    b.Property<string>("Model");
+
                     b.Property<string>("Name")
                         .IsRequired();
 
                     b.Property<decimal>("Price");
 
+                    b.Property<string>("ProductInformation");
+
+                    b.Property<string>("ShortDescription");
+
+                    b.Property<int>("Stock");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("BrandId");
 
                     b.HasIndex("CategoryId");
 
@@ -338,6 +365,10 @@ namespace RefApp.Data.Migrations
 
             modelBuilder.Entity("RefApp.Data.Models.Product", b =>
                 {
+                    b.HasOne("RefApp.Data.Models.Brand", "Brand")
+                        .WithMany("Products")
+                        .HasForeignKey("BrandId");
+
                     b.HasOne("RefApp.Data.Models.Category", "Category")
                         .WithMany("Products")
                         .HasForeignKey("CategoryId")

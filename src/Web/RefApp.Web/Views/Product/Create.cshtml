@@ -5,14 +5,14 @@
     Layout = "_AdminLayout";
     ViewData["Title"] = "Create";
     var categories = this.ViewData["Categories"] as IEnumerable<SelectListItem>;
+    var brands = this.ViewData["Brands"] as IEnumerable<SelectListItem>;
 }
 
-<h2>Create</h2>
+<h2 class="text-center">Create</h2>
 
-<h4>CreateProductInputModel</h4>
 <hr />
-<div class="row">
-    <div class="col-md-12">
+<div class="container">
+    <div class="mx-auto">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
@@ -21,14 +21,44 @@
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="BrandId" class="control-label"></label>
+                <select asp-for="BrandId" asp-items="brands" class="form-control"></select>
+                <span asp-validation-for="BrandId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Model" class="control-label"></label>
+                <input asp-for="Model" class="form-control" />
+                <span asp-validation-for="Model" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="Price" class="control-label"></label>
                 <input asp-for="Price" class="form-control" />
                 <span asp-validation-for="Price" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="Stock" class="control-label"></label>
+                <input asp-for="Stock" class="form-control" />
+                <span asp-validation-for="Stock" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ShortDescription" class="control-label"></label>
+                <input asp-for="ShortDescription" class="form-control" />
+                <span asp-validation-for="ShortDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
+                <input asp-for="Description" type="text" class="form-control" />
                 <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductInformation" class="control-label"></label>
+                <input asp-for="ProductInformation" class="form-control" />
+                <span asp-validation-for="ProductInformation" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImagePath" class="control-label"></label>
+                <input asp-for="ImagePath" class="form-control" />
+                <span asp-validation-for="ImagePath" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="CategoryId" class="control-label"></label>
@@ -39,10 +69,11 @@
                 <input type="submit" value="Create" class="btn btn-default" />
             </div>
         </form>
+        <div class="text-center">
+            <a asp-controller="Home" asp-action="Index" class="btn btn-primary">Back to Home</a>
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to Home</a>
-</div>
+
 

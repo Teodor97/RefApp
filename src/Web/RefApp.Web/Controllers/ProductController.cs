@@ -14,13 +14,16 @@ namespace RefApp.Web.Controllers
     {
         private readonly IProductService productsService;
         private readonly ICategoriesService categoriesService;
+        private readonly IBrandService brandService;
 
         public ProductController(
             IProductService productsService,
-            ICategoriesService categoriesService)
+            ICategoriesService categoriesService,
+            IBrandService brandService)
         {
             this.productsService = productsService;
             this.categoriesService = categoriesService;
+            this.brandService = brandService;
         }
 
         [Authorize]
@@ -31,6 +34,12 @@ namespace RefApp.Web.Controllers
                 {
                     Value = x.Id.ToString(),
                     Text = x.NameAndCount,
+                });
+            this.ViewData["Brands"] = this.brandService.GetAll()
+                .Select(x => new SelectListItem
+                {
+                     Value = x.Id.ToString(),
+                     Text = x.Name
                 });
             return this.View();
         }
@@ -43,7 +52,10 @@ namespace RefApp.Web.Controllers
                 return this.View(input);
             }
 
-            var id = await this.productsService.Create(input.CategoryId, input.Description, input.Name, input.Price);
+            var id = await this.productsService.Create(input.CategoryId, input.Description, 
+                input.ShortDescription, input.BrandId,
+                input.Model, input.ImagePath,
+                input.ProductInformation, input.Stock, input.Name, input.Price);
             return this.RedirectToAction("Details", new { id = id });
         }
 

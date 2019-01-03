@@ -20,6 +20,20 @@ namespace RefApp.Data.Models
         [MinLength(20)]
         public string Description { get; set; }
 
+        public string ShortDescription { get; set; }
+
+        public int Stock { get; set; }
+
+        public int? BrandId { get; set; }
+
+        public virtual Brand Brand { get; set; }
+
+        public string Model { get; set; }
+
+        public string ImagePath { get; set; }
+
+        public string ProductInformation { get; set; }
+
         public int CategoryId { get; set; }
 
         public virtual Category Category { get; set; }

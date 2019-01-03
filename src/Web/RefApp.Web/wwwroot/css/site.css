@@ -35,3 +35,61 @@ body {
         display: none;
     }
 }
+
+:root {
+    --jumbotron-padding-y: 3rem;
+}
+
+.jumbotron {
+    padding-top: var(--jumbotron-padding-y);
+    padding-bottom: var(--jumbotron-padding-y);
+    margin-bottom: 0;
+    background-color: #fff;
+    background-image: url(https://www.carome.com/wp-content/uploads/2017/03/DSC_4497.jpg);
+    background-repeat: no-repeat;
+    background-position: bottom center;
+    background-size: cover;
+}
+.jumbotron p{
+    color:white !important;
+    text-shadow:0 0 10px rgba(0,0,0,0.5);
+}
+@media (min-width: 768px) {
+    .jumbotron {
+        padding-top: calc(var(--jumbotron-padding-y) * 2);
+        padding-bottom: calc(var(--jumbotron-padding-y) * 2);
+    }
+}
+
+.jumbotron p:last-child {
+    margin-bottom: 0;
+}
+
+.jumbotron-heading {
+    font-weight: 300;
+}
+
+.jumbotron .container {
+    max-width: 40rem;
+    background: rgba(255,255,255,0.3);
+    padding: 2rem;
+    color:white;
+}
+
+.btn-custom {
+    color: #212529;
+    background-color: #21252900;
+    border-color: #0062cc;
+}
+
+.service-image-left {
+    padding-right: 50px;
+}
+
+.service-image-right {
+    padding-left: 50px;
+}
+
+    .service-image-left > center > img, .service-image-right > center > img {
+        max-height: 155px;
+    }

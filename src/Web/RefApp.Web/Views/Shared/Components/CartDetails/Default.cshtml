@@ -2,7 +2,7 @@
 @model RefApp.Web.Model.Cart.Cart
 @if (Model.Lines.Count() > 0)
 {
-    <small class="navbar-text">
+    <small class="navbar-text pr-2">
         <b>Your cart:</b>
         @Model.Lines.Sum(x => x.Quantity) item(s)
         @Model.ComputeTotalValue().ToString("c")

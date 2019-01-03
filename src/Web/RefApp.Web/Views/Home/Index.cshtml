@@ -2,35 +2,40 @@
 @model RefApp.Services.Models.Home.IndexViewModel
 @{
     ViewData["Title"] = "Home Page";
-    var number = 1.234567M;
 }
 <hr />
-<h1>@number.ToString("F3")</h1>
-<div class="row">
+
+
+<hr class="w-50"/>
+<div class="row mx-auto">
+
     @foreach (var product in Model.Products)
     {
-        <div class="col-md-4 clearfix">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    @product.Name
-                </div>
-                <div class="panel-footer">
-                    @product.CategoryName
-                    <a class="btn btn-default btn-sm" asp-controller="Product" asp-action="Details" asp-route-id="@product.Id">View</a>
-                    <form id="@product.Id" asp-action="AddToCart"
-                          asp-controller="Cart" method="get">
-                        <input type="hidden" name="productId" value="@product.Id" />
-                        <input type="hidden" name="returnUrl"
-                               value="@ViewContext.HttpContext.Request.PathAndQuery()" />
-                        <span class="card-text p-1">
-                            Nqkakuv description
-                            <button type="submit"
-                                    class="btn btn-success btn-sm pull-right" style="float:right">
-                                Add To Cart
-                            </button>
-                        </span>
-                    </form>
-                </div>
+
+        <div class="card col-lg-4 col-sm-8 p-1 text-center" style="display: flex;">
+            <img class="card-img-top" src="@product.ImagePath" height="350" width="300" alt="Refrigerator image">
+            <div class="card-body">
+                <h4 class="card-title"><a class="" asp-controller="Product" asp-action="Details" asp-route-id="@product.Id">@product.Name</a></h4>
+                <p class="card-text">@product.ShortDescription
+            </div>
+            <div class="card-footer bg-info">
+                <form id="@product.Id" asp-action="AddToCart"
+                      asp-controller="Cart" method="get">
+                    <input type="hidden" name="productId" value="@product.Id" />
+                    <input type="hidden" name="returnUrl"
+                           value="@ViewContext.HttpContext.Request.PathAndQuery()" />
+                    <span class="card-text p-1">
+                        <button type="submit"
+                                class="btn btn-light btn-sm pull-right" style="float:right">
+                            Add To Cart
+                        </button>
+                        <button type="submit"
+                                class="btn btn-light btn-sm pull-left" style="float:left"
+                                asp-controller="Product" asp-action="Details" asp-route-id="@product.Id">
+                            View
+                        </button>
+                    </span>
+                </form>
             </div>
         </div>
     }

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using RefApp.Services.Models.Categories;
 
 namespace RefApp.Services.DataServices
@@ -9,5 +10,7 @@ namespace RefApp.Services.DataServices
         IEnumerable<CategoryIdAndNameViewModel> GetAll();
 
         bool IsCategoryIdValid(int categoryId);
+
+        Task<int> Create(string name);
     }
 }

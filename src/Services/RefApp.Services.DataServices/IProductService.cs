@@ -12,10 +12,15 @@ namespace RefApp.Services.DataServices
 
         int GetCount();
 
-        Task<int> Create(int categoryId, string description, string name, decimal price);
+        Task<int> Create(int categoryId, string description,
+            string shortDescription, int brandId,
+            string model, string imagePath,
+            string productInformation, int stock,
+            string name, decimal price);
 
         ProductDetailsViewModel GetProductById(int id);
         IEnumerable<IndexProductViewModel> GetProductsByCategory(string category);
+        IEnumerable<IndexProductViewModel> GetProductsByBrand(string brand);
         Product ProductById(int productId);
 
         IEnumerable<Product> GetAllProducts();

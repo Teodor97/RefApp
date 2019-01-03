@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using RefApp.Data.Common;
 using RefApp.Data.Models;
 using RefApp.Services.Mapping;
@@ -15,6 +16,19 @@ namespace RefApp.Services.DataServices
         public CategoriesService(IRepository<Category> categoriesRepository)
         {
             this.categoriesRepository = categoriesRepository;
+        }
+
+        public async Task<int> Create(string name)
+        {
+            var category = new Category
+            {
+                Name = name
+            };
+
+            await this.categoriesRepository.AddAsync(category);
+            await this.categoriesRepository.SaveChangesAsync();
+
+            return category.Id;
         }
 
         public IEnumerable<CategoryIdAndNameViewModel> GetAll()

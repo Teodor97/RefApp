@@ -16,18 +16,26 @@ namespace RefApp.Web.Controllers
             this.productsService = productsService;
         }
 
-        public IActionResult Index(string category)
+        public IActionResult Index(string category, string brand)
         {
             IEnumerable<IndexProductViewModel> products = null;
-            if (category == null)
+            if (category == null && brand == null)
             {
                 products = this.productsService.GetRandomProducts(10);
             }
             else
             {
-                products = this.productsService.GetProductsByCategory(category);
+                if (category == null)
+                {
+                    products = this.productsService.GetProductsByBrand(brand);
+                }
+                else
+                {
+                    products = this.productsService.GetProductsByCategory(category);
+                }
+
             }
-            
+
             var viewModel = new IndexViewModel
             {
                 Products = products,

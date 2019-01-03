@@ -45,15 +45,24 @@ namespace RefApp.Services.DataServices
             return this.productsRepository.All().Count();
         }
 
-        public async Task<int> Create(int categoryId, string description, string name, decimal price)
+        public async Task<int> Create(int categoryId, string description,
+            string shortDescription, int brandId, 
+            string model, string imagePath,
+            string productInformation, int stock, 
+            string name, decimal price)
         {
             var product = new Product
             {
                 CategoryId = categoryId,
                 Name = name,
                 Price = price,
-                Description = description
-
+                BrandId = brandId,
+                Description = description,
+                ShortDescription = shortDescription,
+                ImagePath = imagePath,
+                Model = model,
+                ProductInformation = productInformation,
+                Stock = stock
             };
 
             await this.productsRepository.AddAsync(product);
@@ -81,7 +90,11 @@ namespace RefApp.Services.DataServices
             var products = this.productsRepository.All().Where(p => p.Category == null || p.Category.Name == category).To<IndexProductViewModel>().ToList();
             return products;
         }
-
+        public IEnumerable<IndexProductViewModel> GetProductsByBrand(string brand)
+        {
+            var products = this.productsRepository.All().Where(p => p.Brand == null || p.Brand.Name == brand).To<IndexProductViewModel>().ToList();
+            return products;
+        }
         public void SaveProduct(Product product)
         {
             if (product.Id == 0)
@@ -113,6 +126,11 @@ namespace RefApp.Services.DataServices
                 productsRepository.SaveChanges();
             }
             return dbEntry;
+        }
+
+        public Task<int> Create(int categoryId, string description, string shortDesc, string brand, string model, string imgPath, int stock, string name, decimal price)
+        {
+            throw new NotImplementedException();
         }
     }
 }
