@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" asp-href-include="lib/bootstrap/dist/css/*.min.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <title>@ViewBag.Title</title>
+    <style>
+        .input-validation-error {
+            border-color: red;
+            background-color: #fee;
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
+
+</head>
+<body>
+    <div class="row">
+        <div class="bg-success col-md-12 text-center"><h3>@ViewBag.Title</h3></div>
+        <main class="mx-auto">
+            @if (TempData["message"] != null)
+            {
+                <div class="alert alert-success">@TempData["message"]</div>
+            }
+            @RenderBody()
+        </main>
+    </div>
+
+</body>
+</html>
