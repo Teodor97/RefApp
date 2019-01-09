@@ -1,2 +1,2 @@
-# FunApp
-Demo app with jokes and funny images
+# Ref Application
+Application for selling refrigerators!
