@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using RefApp.Data.Common;
 using RefApp.Data.Models;
 using RefApp.Services.Mapping;
 using RefApp.Services.Models.Home;
 using RefApp.Services.Models.Product;
-using Remotion.Linq.Utilities;
 
 namespace RefApp.Services.DataServices
 {

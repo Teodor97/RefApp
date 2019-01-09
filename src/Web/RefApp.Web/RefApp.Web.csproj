@@ -24,9 +24,6 @@
     <Content Update="Views\Product\Details.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
-    <Content Update="Views\Product\Details - Original.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
   </ItemGroup>
 
 </Project>

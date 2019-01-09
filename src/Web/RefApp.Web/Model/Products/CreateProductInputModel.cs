@@ -24,8 +24,11 @@ namespace RefApp.Web.Model.Products
         [Required]
         public string ImagePath { get; set; }
 
+        [Required]
+        [MaxLength(30)]
         public string ShortDescription { get; set; }
 
+        [Required]
         public string ProductInformation { get; set; }
 
         [Required]

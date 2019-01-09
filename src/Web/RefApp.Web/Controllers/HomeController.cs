@@ -14,7 +14,7 @@ namespace RefApp.Web.Controllers
     public class HomeController : BaseController
     {
         private readonly IProductService productsService;
-        private int PageSize = 6;
+        public int PageSize = 6;
 
         public HomeController(IProductService productsService)
         {
