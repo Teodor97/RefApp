@@ -7,6 +7,19 @@
 
 
 <hr class="w-50" />
+
+@if (TempData["FoundProductsCount"] != null)
+{
+    if (TempData["FoundProductsCount"].ToString()=="0")
+    {
+        <div class="alert alert-danger">There are no products matching the criteria!</div>
+    }
+    else
+    {
+        <div class="alert alert-success">@TempData["FoundProductsCount"] product(s) have beed found!</div>
+    }
+}
+
 <div class="row mx-auto">
 
     @foreach (var product in Model.Products)

@@ -24,13 +24,12 @@ namespace RefApp.Web.Controllers
         public IActionResult Index(string category, int productPage = 1)
         {
             IEnumerable<IndexProductViewModel> products = null;
-                products = this.productsService.GetRandomProducts(10)
-                            .Where(p => category == null || p.CategoryName == category)
-                            .OrderBy(p => p.Id)
-                            .Skip((productPage - 1) * PageSize)
-                            .Take(PageSize);
-
-
+            if (!String.IsNullOrEmpty(category))
+            {
+                products = this.productsService.SetForPageByCategoryTerm(category, productPage, PageSize);
+            }
+            else products = this.productsService.SetForPage(productPage, PageSize);
+            
             var viewModel = new IndexViewModel
             {
                 Products = products,
@@ -52,18 +51,13 @@ namespace RefApp.Web.Controllers
 
             if (!String.IsNullOrEmpty(searchString))
             {
-                products = this.productsService.GetProductsBySearch(searchString).OrderBy(p => p.Id)
-                            .Skip((productPage - 1) * PageSize)
-                            .Take(PageSize);
+                products = this.productsService.SetForPageBySearchTerm(searchString, productPage, PageSize);
             }
-            else
-            {
-                products = this.productsService.GetRandomProducts(10).OrderBy(p => p.Id)
-                            .Skip((productPage - 1) * PageSize)
-                            .Take(PageSize);
-            }
+            else products = this.productsService.SetForPage(productPage, PageSize);
 
             ViewData["CurrentTerm"] = searchString;
+            TempData["FoundProductsCount"] = searchString == null ? productsService.GetCount() : productsService
+                .GetProductsBySearch(searchString).Count();
 
             var viewModel = new IndexViewModel
             {

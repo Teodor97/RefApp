@@ -103,6 +103,36 @@ namespace RefApp.Services.DataServices
                 .To<IndexProductViewModel>().ToList();
             return products;
         }
+        public IEnumerable<IndexProductViewModel> SetForPageBySearchTerm(string search, int productPage, int pageSize)
+        {
+            var products = this.productsRepository.All()
+                .Where(p => p.Name.Contains(search))
+                .OrderBy(p => p.Id)
+                .Skip((productPage - 1) * pageSize)
+                .Take(pageSize)
+                .To<IndexProductViewModel>().ToList();
+            return products;
+        }
+        public IEnumerable<IndexProductViewModel> SetForPageByCategoryTerm(string category, int productPage, int pageSize)
+        {
+            var products = this.productsRepository.All()
+                .Where(p => p.Category.Name == category)
+                .OrderBy(p => p.Id)
+                .Skip((productPage - 1) * pageSize)
+                .Take(pageSize)
+                .To<IndexProductViewModel>().ToList();
+            return products;
+        }
+        public IEnumerable<IndexProductViewModel> SetForPage(int productPage, int pageSize)
+        {
+            var products = this.productsRepository.All()
+                .OrderBy(x => Guid.NewGuid())
+                .OrderByDescending(p => p.Id)
+                .Skip((productPage - 1) * pageSize)
+                .Take(pageSize)
+                .To<IndexProductViewModel>().ToList();
+            return products;
+        }
         public void SaveProduct(Product product)
         {
             if (product.Id == 0)
@@ -134,11 +164,6 @@ namespace RefApp.Services.DataServices
                 productsRepository.SaveChanges();
             }
             return dbEntry;
-        }
-
-        public Task<int> Create(int categoryId, string description, string shortDesc, string brand, string model, string imgPath, int stock, string name, decimal price)
-        {
-            throw new NotImplementedException();
         }
     }
 }

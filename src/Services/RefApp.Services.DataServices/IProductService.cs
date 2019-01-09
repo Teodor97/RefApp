@@ -19,9 +19,19 @@ namespace RefApp.Services.DataServices
             string name, decimal price);
 
         ProductDetailsViewModel GetProductById(int id);
+
         IEnumerable<IndexProductViewModel> GetProductsByCategory(string category);
+
         IEnumerable<IndexProductViewModel> GetProductsByBrand(string brand);
+
         IEnumerable<IndexProductViewModel> GetProductsBySearch(string searchString);
+
+        IEnumerable<IndexProductViewModel> SetForPageBySearchTerm(string search, int productPage, int pageSize);
+
+        IEnumerable<IndexProductViewModel> SetForPageByCategoryTerm(string category, int productPage, int pageSize);
+
+        IEnumerable<IndexProductViewModel> SetForPage(int productPage, int pageSize);
+
         Product ProductById(int productId);
 
         IEnumerable<Product> GetAllProducts();
