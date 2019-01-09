@@ -106,18 +106,29 @@ namespace RefApp.Web
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    name: null,
+                    template: "",
+                    defaults: new { controller = "Home", action = "Index" });
+
+                routes.MapRoute(
+                    name: null,
+                    template: "{category}/Page{productPage:int}",
+                    defaults: new { controller = "Home", action = "Index"});
+
+                routes.MapRoute(
+                    name: null,
+                    template: "Page{productPage:int}",
+                    defaults: new{controller = "Home", action = "Index"});
+
+                
                 routes.MapRoute(
                     name: null,
                     template: "{category}",
-                    defaults: new { controller = "Home", action = "Index"}
-                    );
+                    defaults: new { controller = "Home", action = "Index"});
+
                 routes.MapRoute(
-                    name: null,
-                    template: "{brand}" ,
-                    defaults: new { controller = "Home", action = "Index" } //TODO: not working yet
-                    );
+                    name: "default",
+                    template: "{controller=Home}/{action=Index}/{id?}");
             });
 
             SeedUserRoles(serviceProvider).Wait();

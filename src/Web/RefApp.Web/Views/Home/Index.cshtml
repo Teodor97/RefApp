@@ -6,7 +6,7 @@
 <hr />
 
 
-<hr class="w-50"/>
+<hr class="w-50" />
 <div class="row mx-auto">
 
     @foreach (var product in Model.Products)
@@ -39,5 +39,11 @@
             </div>
         </div>
     }
+
+</div>
+<div page-model="@Model.PagingInfo" page-action="Index" page-classes-enabled="true"
+     page-class="btn" page-class-normal="btn-secondary"
+     page-class-selected="btn-primary" page-url-category="@Model.CurrentCategory"
+     class="btn-group pull-right m-1">
 </div>
 @*<form id="@product.Id" asp-action="AddToCart" asp-controller="Cart" method="post"><button class="btn btn-success btn-sm pull-right" style="float:right">Add To Cart</button></form>*@

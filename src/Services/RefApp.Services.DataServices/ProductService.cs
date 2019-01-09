@@ -95,6 +95,14 @@ namespace RefApp.Services.DataServices
             var products = this.productsRepository.All().Where(p => p.Brand == null || p.Brand.Name == brand).To<IndexProductViewModel>().ToList();
             return products;
         }
+
+        public IEnumerable<IndexProductViewModel> GetProductsBySearch(string searchString)
+        {
+            var products = this.productsRepository.All()
+                .Where(p => p.Name.Contains(searchString))
+                .To<IndexProductViewModel>().ToList();
+            return products;
+        }
         public void SaveProduct(Product product)
         {
             if (product.Id == 0)

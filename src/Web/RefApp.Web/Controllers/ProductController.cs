@@ -64,5 +64,7 @@ namespace RefApp.Web.Controllers
             var product = this.productsService.GetProductById(id);
             return this.View(product);
         }
+
+
     }
 }

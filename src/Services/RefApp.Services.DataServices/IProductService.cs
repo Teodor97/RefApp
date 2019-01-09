@@ -21,6 +21,7 @@ namespace RefApp.Services.DataServices
         ProductDetailsViewModel GetProductById(int id);
         IEnumerable<IndexProductViewModel> GetProductsByCategory(string category);
         IEnumerable<IndexProductViewModel> GetProductsByBrand(string brand);
+        IEnumerable<IndexProductViewModel> GetProductsBySearch(string searchString);
         Product ProductById(int productId);
 
         IEnumerable<Product> GetAllProducts();
